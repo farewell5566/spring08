@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=http://www.thymeleaf.org"">
+<head>
+    <meta charset="UTF-8">
+    <title>用户信息</title>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+
+    <script th:src="@{/js/common/jquery-3.4.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+
+</head>
+<body>
+
+<table class="table table-hover">
+    <tr>
+        <th>id</th>
+        <th>loginName</th>
+        <th>age</th>
+        <th>address</th>
+        <th>nickName</th>
+    </tr>
+
+    <tr th:each="account : ${accountData}">
+        <td th:text="${accountStat.count}"></td>
+        <td th:text="${account.id}">工号</td>
+        <td th:text="${account.loginName}">loginName</td>
+        <td th:text="${account.nickName}">nickName</td>
+        <td th:text="${account.age}">age</td>
+
+        <td>操作</td>
+    </tr>
+
+
+<!--    <tr>
+        <td th:text= "${accountData}"></td>
+
+        &lt;!&ndash;<td th:each= "account:${accountData}"></td>&ndash;&gt;
+                <td th:text="${account}">工号</td>
+        &lt;!&ndash;        <td th:text="${accountStat.count}"></td>
+                <td th:text="${account.loginName}">loginName</td>
+                <td th:text="${account.nickName}">nickName</td>
+                <td th:text="${account.age}">age</td>&ndash;&gt;
+
+
+&lt;!&ndash;        <td th:text="${account.loginName}">loginName</td>
+        <td th:text="${account.age}">age</td>
+        <td th:text="${account.address}">address</td>
+        <td th:text="${accountData}"></td>&ndash;&gt;
+    </tr>-->
+</table>
+
+
+</body>
+</html>

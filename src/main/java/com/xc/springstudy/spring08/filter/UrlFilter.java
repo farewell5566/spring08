@@ -20,9 +20,7 @@ public class UrlFilter implements Filter {
         HttpServletRequest reQ = (HttpServletRequest) servletRequest;
         HttpServletResponse reP = (HttpServletResponse) servletResponse;
 
-        Object account = reQ.getSession().getAttribute("account");
 
-        System.out.println(account.toString());
         //String loginURI = "/login";
         System.out.println(reQ.getRequestURI());
 
@@ -32,11 +30,15 @@ public class UrlFilter implements Filter {
                 return;
             }
         }
+        Object account = reQ.getSession().getAttribute("account");
+
         if (null == account){
             reP.sendRedirect("/account/login");
             return ;
-        }else
-            filterChain.doFilter(servletRequest,servletResponse);
+        }else {
+            System.out.println(account.toString());
+            filterChain.doFilter(servletRequest, servletResponse);
+        }
     }
 
     @Override

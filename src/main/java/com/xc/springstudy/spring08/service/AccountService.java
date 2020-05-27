@@ -28,4 +28,9 @@ public class AccountService {
         return accounts.size()==1? accounts.get(0):null;
 
     }
+
+    public List<Account> findAll() {
+        return accMapper.selectByExample(new AccountExample());
+
+    }
 }
