@@ -1,6 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xc.springstudy.spring08.mapper.AccountDAO">
+
+<!--自定义，包含一对关系-->
+<resultMap id="findAllBaseResultMap" type="com.xc.springstudy.spring08.entity.Account" >
+  <id column="aid" jdbcType="INTEGER" property="id" />
+  <result column="login_name" jdbcType="VARCHAR" property="loginName" />
+  <result column="password" jdbcType="VARCHAR" property="password" />
+  <result column="age" jdbcType="INTEGER" property="age" />
+  <result column="address" jdbcType="VARCHAR" property="address" />
+    <collection property="roles" ofType="com.xc.springstudy.spring08.entity.Role">
+      <id column="rid" jdbcType="INTEGER" property="id" />
+      <result column="rname" jdbcType="VARCHAR" property="name" />
+    </collection>
+  <collection property="permissions" ofType="com.xc.springstudy.spring08.entity.Permission">
+    <id column="pid" jdbcType="INTEGER" property="id" />
+    <result column="pname" jdbcType="VARCHAR" property="name" />
+    <result column="uri" jdbcType="VARCHAR" property="uri" />
+    <result column="c" jdbcType="TINYINT" property="c" />
+    <result column="r" jdbcType="TINYINT" property="r" />
+    <result column="u" jdbcType="TINYINT" property="u" />
+    <result column="d" jdbcType="TINYINT" property="d" />
+  </collection>
+
+
+</resultMap>
+  
+  <select id="findAll" resultMap="findAllBaseResultMap"  >
+/*      select * from account as a
+          inner join account_role as ar
+          on a.id=ar.account_id
+          inner join role
+          on ar.role_id=role.id
+
+          left  join role_permission as rp
+          on role.id=rp.role_id
+          left   join permission as per
+          on per.id = rp.permission_id*/
+
+         select
+	a.id as aid,
+    a.login_name,
+    a.password,
+    a.address,
+    role.id as rid,
+    role.name  as rname,
+    per.id as pid,
+	per.name as pname,
+    uri,
+    c,
+    r,
+    u,
+    d
+ from account as a
+	inner join account_role as ar
+    on a.id=ar.account_id
+    inner join role
+    on ar.role_id=role.id
+
+    left  join role_permission as rp
+    on role.id=rp.role_id
+    left   join permission as per
+    on per.id = rp.permission_id
+
+  </select>
+<!--自定义的sql-->
+
+
   <resultMap id="BaseResultMap" type="com.xc.springstudy.spring08.entity.Account">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="login_name" jdbcType="VARCHAR" property="loginName" />

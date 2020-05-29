@@ -4,7 +4,9 @@ package com.xc.springstudy.spring08.controller;
 import com.github.pagehelper.PageInfo;
 import com.xc.springstudy.spring08.Stas;
 import com.xc.springstudy.spring08.entity.Account;
+import com.xc.springstudy.spring08.entity.Permission;
 import com.xc.springstudy.spring08.service.AccountService;
+import com.xc.springstudy.spring08.service.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,47 +15,33 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @Controller
-@RequestMapping("/account")
-public class AccountController {
+@RequestMapping("/manager")
+public class ManagerController {
 
     @Autowired
     AccountService accServ;
 
-    @RequestMapping("/login")
-    public String login(){
-        return "account/login";
-    }
+    @Autowired
+    PermissionService perServ;
 
 
-    @RequestMapping("/validataAccount")
-    @ResponseBody
-    public String validataAccount(String loginName, String password, HttpServletRequest request){
-        Account acc = accServ.findByLoginNameAndPassword(loginName,password);
-        System.out.println("账号："+loginName);
-        System.out.println("密码："+password);
-        if (acc!=null) {
-            request.getSession().setAttribute("account",acc);
-            return "success";
-        }else
-            return "error";
-    }
-
-    @RequestMapping("/logout")
-    public String logOut(HttpServletRequest request){
-        request.getSession().removeAttribute("account");
-        return "index";
-    }
-
-
-    @RequestMapping("/list")
+    @RequestMapping("/accountList")
     public String listAll(@RequestParam(defaultValue = "1") int pageNum,@RequestParam(defaultValue = "4") Integer pageSize, Model data){
         PageInfo<Account> pageData= accServ.findAll(pageNum,pageSize);
         data.addAttribute("pageData",pageData);
-        return "account/list";
+        return "/manager/accountList";
     }
+
+    @RequestMapping("/permissionList")
+    public String permissionlistAll(@RequestParam(defaultValue = "1") int pageNum,@RequestParam(defaultValue = "4") Integer pageSize, Model data){
+        PageInfo<Permission> pageData= perServ.findAll(pageNum,pageSize);
+        System.out.println(pageData);
+        data.addAttribute("pageData",pageData);
+        return "/manager/permissionList";
+    }
+
 
     @RequestMapping("/deleteById")
     @ResponseBody
@@ -63,6 +51,10 @@ public class AccountController {
         System.out.println(status);
         return status;
     }
+
+
+
+
 
 
 }

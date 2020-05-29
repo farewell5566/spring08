@@ -1,6 +1,7 @@
 package com.xc.springstudy.spring08.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author 
@@ -18,6 +19,26 @@ public class Account implements Serializable {
     private String address;
 
     private String nickName;
+
+    private List<Role> roles;
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+    public List<Permission> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(List<Permission> permissions) {
+        this.permissions = permissions;
+    }
+
+    private List<Permission> permissions;
 
     private static final long serialVersionUID = 1L;
 
