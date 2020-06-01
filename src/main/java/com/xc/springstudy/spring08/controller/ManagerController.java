@@ -53,8 +53,22 @@ public class ManagerController {
     }
 
 
+    @RequestMapping("/permissionModify")
+    public String permissionlistModify(@RequestParam Integer id, Model data){
+        System.out.println(id);
+        Permission per = perServ.findById(id);
+        System.out.println(per);
+        data.addAttribute("per",per);
+        //return "index";
+        return "/manager/permissionModify";
+    }
 
+    @RequestMapping("/permissionAdd")
+    public String add(){
+        System.out.println("modify");
 
+        return "/manager/permissionModify";
+    }
 
 
 }

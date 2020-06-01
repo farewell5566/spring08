@@ -3,23 +3,23 @@ package com.xc.springstudy.spring08.entity;
 import java.io.Serializable;
 
 /**
- * @author 
- * 
+ * permission
+ * @author
  */
 public class Permission implements Serializable {
     private Integer id;
 
-    private String name;
-
     private String uri;
 
-    private Byte c;
+    private String name;
 
-    private Byte r;
+    private Boolean c;
 
-    private Byte u;
+    private Boolean r;
 
-    private Byte d;
+    private Boolean u;
+
+    private Boolean d;
 
     private static final long serialVersionUID = 1L;
 
@@ -31,14 +31,6 @@ public class Permission implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getUri() {
         return uri;
     }
@@ -47,35 +39,43 @@ public class Permission implements Serializable {
         this.uri = uri;
     }
 
-    public Byte getC() {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Boolean getC() {
         return c;
     }
 
-    public void setC(Byte c) {
+    public void setC(Boolean c) {
         this.c = c;
     }
 
-    public Byte getR() {
+    public Boolean getR() {
         return r;
     }
 
-    public void setR(Byte r) {
+    public void setR(Boolean r) {
         this.r = r;
     }
 
-    public Byte getU() {
+    public Boolean getU() {
         return u;
     }
 
-    public void setU(Byte u) {
+    public void setU(Boolean u) {
         this.u = u;
     }
 
-    public Byte getD() {
+    public Boolean getD() {
         return d;
     }
 
-    public void setD(Byte d) {
+    public void setD(Boolean d) {
         this.d = d;
     }
 
@@ -92,12 +92,12 @@ public class Permission implements Serializable {
         }
         Permission other = (Permission) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
-            && (this.getUri() == null ? other.getUri() == null : this.getUri().equals(other.getUri()))
-            && (this.getC() == null ? other.getC() == null : this.getC().equals(other.getC()))
-            && (this.getR() == null ? other.getR() == null : this.getR().equals(other.getR()))
-            && (this.getU() == null ? other.getU() == null : this.getU().equals(other.getU()))
-            && (this.getD() == null ? other.getD() == null : this.getD().equals(other.getD()));
+                && (this.getUri() == null ? other.getUri() == null : this.getUri().equals(other.getUri()))
+                && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
+                && (this.getC() == null ? other.getC() == null : this.getC().equals(other.getC()))
+                && (this.getR() == null ? other.getR() == null : this.getR().equals(other.getR()))
+                && (this.getU() == null ? other.getU() == null : this.getU().equals(other.getU()))
+                && (this.getD() == null ? other.getD() == null : this.getD().equals(other.getD()));
     }
 
     @Override
@@ -105,8 +105,8 @@ public class Permission implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         result = prime * result + ((getUri() == null) ? 0 : getUri().hashCode());
+        result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         result = prime * result + ((getC() == null) ? 0 : getC().hashCode());
         result = prime * result + ((getR() == null) ? 0 : getR().hashCode());
         result = prime * result + ((getU() == null) ? 0 : getU().hashCode());
@@ -121,8 +121,8 @@ public class Permission implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", name=").append(name);
         sb.append(", uri=").append(uri);
+        sb.append(", name=").append(name);
         sb.append(", c=").append(c);
         sb.append(", r=").append(r);
         sb.append(", u=").append(u);

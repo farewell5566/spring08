@@ -97,61 +97,22 @@
 
 <!--导航栏  ↑-->
 
-<!--<a class = "btn btn-default" th:href="@{javascript:submit();}">提交</a>-->
 
-<a  class="btn btn-default"   th:href="@{javascript:add();}" >新增权限</a>
-<table border="1" class="table table-hover">
-    <tr>
-        <th>序号</th>
-        <th>工号</th>
-        <th>Name</th>
-        <th>uri</th>
-        <th>c</th>
-        <th>r</th>
-        <th>u</th>
-        <th>d</th>
-    </tr>
+<h1 >修改/增加 权限</h1>
 
-    <tr th:each="item : ${pageData.list}">
-        <td th:text="${itemStat.count}"></td>
-        <td th:text="${item.id}">工号</td>
-        <td th:text="${item.name}">loginName</td>
-        <td th:text="${item.uri}">age</td>
-        <td th:text="${item.c}">address</td>
-        <td th:text="${item.r}"  >nickName</td>
-        <td th:text="${item.u}"  >nickName</td>
-        <td th:text="${item.d}"  >nickName</td>
+<form id="perData">
 
-        <td >
-            <!--//<a th:href="@{'javascript:deleteById(' + ${account.id} + ');'}" > 删除-->
-
-            <a class = "btn btn-default"  th:href="@{'javascript:modityByID(' + ${item.id} + ');'}"  >修改</a>
-            <a class = "btn btn-default" th:href="perssion"  >删除</a>
-        </td>
-    </tr>
-</table>
-
-<!--<nav aria-label="Page navigation">
-    <ul class="pagination"   >
-        <li th:class="${pageData.prePage} ==0? 'disabled' : ' '  "  >
-            <a  th:href="@{ ${pageData.prePage} ==0 ?   'javascript:void(0);' : '/account/list?pageNum=' + ${pageData.prePage}}"  aria-label="Previous"  >
-                <span aria-hidden="true">&laquo;</span>
-            </a>
-        </li>
-
-        <li th:each="num:${pageData.navigatepageNums}"><a th:href="@{'/account/list?pageNum='+  ${num}}" th:text="${num}">1
-            <span class="sr-only">(current)</span></a></li>
-
-        <li th:class="${pageData.nextPage} ==0? 'disabled' : ' '  "  >
-            <a  th:href="@{ ${pageData.nextPage} ==0 ?   'javascript:void(0);' : '/account/list?pageNum=' + ${pageData.nextPage}}"  aria-label="Previous"  >
-                <span aria-hidden="true">&raquo;</span>
-            </a>
-        </li>
-    </ul>
-</nav>-->
-
-<!-- Button trigger modal -->
-
+    ID： <input name="id" type="text" th:value="${per}==null?'':${per.id}"> <br>
+    权限名称： <input name="name" type="text" th:value="${per}==null?'':${per.name}"><br>
+    URI： <input name="uri" type="text" th:value="${per}==null?'':${per.uri}"> <br>
+    权限：
+    <input type="checkbox" id="c" checked=""> c
+    <input type="checkbox" id="r" >  r
+    <input type="checkbox" id="u" checked="false"> u
+    <input type="checkbox" id="d"  > d
+    <br>
+    <a class = "btn btn-default" th:href="@{javascript:submit();}">提交</a>
+</form>
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -178,22 +139,48 @@
 
 <script type="text/javascript" >
 
-    function modityByID(id) {
-        window.location.href="/manager/permissionModify?id="+id
+    function submit(){
+        var sendData={};
+        var data = $("#perData").serializeArray();
+        console.log(data);
+        $.each(data,function (i,item) {
+            sendData[item.name] = item.value
+        })
+        sendData["c"]=$("#c").is(':checked');
+        sendData["r"]=$("#r").is(':checked');
+        sendData["u"]=$("#u").is(':checked');
+        sendData["d"]=$("#d").is(':checked');
 
-        /*        console.log(id);
+        console.log(sendData);
+        console.log(JSON.stringify(sendData));
+
+        var url="/api/v1/manager/permission/update"
+        $.ajax({
+            type : "post",
+            url: url,
+            contentType : "application/json",
+            data:JSON.stringify(sendData),
+            dataType:"json",
+            success:function (msg) {
+                console.log("success:" + JSON.stringify(msg));
+            },
+            error:function (msg) {
+                console.log("error: "+ msg);
+            }
+        })
+
+    }
+
+
+    function modityByID(id) {
+        console.log(id);
         var uri="/manager/permissionModify";
         var argus ={id:id}
         $.post(uri,argus,function (data){
             console.log(data);
-        })*/
+        })
     }
-
-    function add(){
-        window.location.href="/manager/permissionAdd";
-    }
-
-
+    
     
     $(function () {
         $('[data-toggle="popover"]').popover()

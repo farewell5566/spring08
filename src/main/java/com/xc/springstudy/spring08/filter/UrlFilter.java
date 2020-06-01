@@ -13,7 +13,7 @@ import java.io.IOException;
 public class UrlFilter implements Filter {
 
 
-    private final String[] IGNORE_URI={"/index","/account/login","/account/validataAccount","/css/","/js/","/image/"};
+    private final String[] IGNORE_URI={"/index","/account/login","/account/validataAccount","/css/","/js/","/images/"};
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {

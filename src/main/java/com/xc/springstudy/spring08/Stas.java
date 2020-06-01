@@ -17,11 +17,11 @@ public class Stas {
         this.data = data;
     }
 
-    public Stas build(int code){
+    static public Stas build(int code){
         return new Stas(code,"right","ok");
     }
 
-    public Stas error(String mess){
+    static public Stas error(String mess){
         return new Stas(400,"error",mess);
     }
 
