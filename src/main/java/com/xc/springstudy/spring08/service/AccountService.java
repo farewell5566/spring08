@@ -70,4 +70,8 @@ public class AccountService {
         return row==1 ? stas.build(200):stas.error("没有删除数据");
 
     }
+
+    public void updataAccount(Account acc) {
+        accMapper.updateByPrimaryKeySelective(acc);
+    }
 }

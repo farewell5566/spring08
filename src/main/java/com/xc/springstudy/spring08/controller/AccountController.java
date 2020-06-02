@@ -8,12 +8,15 @@ import com.xc.springstudy.spring08.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.util.List;
 
 @Controller
@@ -72,6 +75,34 @@ public class AccountController {
         System.out.println(status);
         return status;
     }
+
+    @RequestMapping("/uploadImage")
+    @ResponseBody
+    public String uploadImage( String password,MultipartFile filename,HttpServletRequest request){
+
+
+        try{
+            Account acc =(Account) request.getSession().getAttribute("account");
+            //定位项目路径，用于war，不能用在jar，用在jar的话，需要在项目外边进性生成
+            File path = new File(ResourceUtils.getURL("classpath:").getPath());
+
+            File upload = new File(path.getAbsoluteFile(),"static/upload/");
+            System.out.println("originale:" + filename.getOriginalFilename());
+            System.out.println("upload :" + upload+ "/" + filename.getOriginalFilename());
+            filename.transferTo(new File(upload+ "/" + filename.getOriginalFilename()));
+
+            acc.setPassword(password);
+            acc.setAddress(filename.getOriginalFilename());
+            accServ.updataAccount(acc);
+
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+
+        return "profile";
+    }
+
+
 
 
 }

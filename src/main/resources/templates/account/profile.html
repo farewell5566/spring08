@@ -12,11 +12,11 @@
 </head>
 <body>
 <!--网页上方  栏 下 -->
-<!--<nav class="navbar navbar-default">
+<nav class="navbar navbar-default">
     <div class="container-fluid">
-        &lt;!&ndash; Brand and toggle get grouped for better mobile display &ndash;&gt;
+        <!-- Brand and toggle get grouped for better mobile display -->
 
-        &lt;!&ndash;首页    ↓&ndash;&gt;
+        <!--首页    ↓-->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
@@ -27,9 +27,9 @@
             <a class="navbar-brand" href="/index">首页</a>
         </div>
 
-        &lt;!&ndash;首页  ↑&ndash;&gt;
+        <!--首页  ↑-->
 
-        &lt;!&ndash; Collect the nav links, forms, and other content for toggling &ndash;&gt;
+        <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
             <ul class="nav navbar-nav">
@@ -90,24 +90,22 @@
                     </ul>
                 </li>
             </ul>
-        </div>&lt;!&ndash; /.navbar-collapse &ndash;&gt;
-    </div>&lt;!&ndash; /.container-fluid &ndash;&gt;
-</nav>-->
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
 
 <!--网页上方栏目   ↑-->
+<form action="/account/uploadImage" method="post" enctype="multipart/form-data">
 
-
-<!--个人Name<input >[[{session.name}]]-->
-
+登录名：<p>[[${session.account.loginName}]]</p>
+人员ID：<p>[[${session.account.id}]]</p>
+    密码：<input id="password" name = "password" type="password" value="请输入密码">
+    头像：<br>
+<input type="file" name="filename">
+<input type="submit"/>
+</form>
 <!-- Button trigger modal -->
 
-
-
-
-
-
-
-<!--
 <script type="text/javascript" >
 
     $(function () {
@@ -133,7 +131,9 @@
 
 
 </script>
--->
+
+
+
 
 
 
