@@ -1,6 +1,7 @@
 package com.xc.springstudy.spring08.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author 
@@ -10,6 +11,16 @@ public class Role implements Serializable {
     private Integer id;
 
     private String name;
+
+    private List<Permission> permissions;
+
+    public List<Permission> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(List<Permission> permissions) {
+        this.permissions = permissions;
+    }
 
     private static final long serialVersionUID = 1L;
 

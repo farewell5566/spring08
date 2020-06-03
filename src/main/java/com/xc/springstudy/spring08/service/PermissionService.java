@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.beans.PersistenceDelegate;
+import java.util.List;
 
 @Service
 public class PermissionService {
@@ -39,5 +40,15 @@ public class PermissionService {
         }
         return rows == 1 ? Stas.build(200) : Stas.error("Dont Update Permission");
 
+    }
+
+    public List<Permission> findName() {
+        PermissionExample perEx = new PermissionExample();
+        perEx.createCriteria().andNameIsNotNull();
+        return perMapper.selectByExample(perEx);
+    }
+
+    public List<Permission> findAll() {
+        return perMapper.selectByExample(new PermissionExample());
     }
 }

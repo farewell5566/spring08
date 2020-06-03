@@ -5,6 +5,61 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
   </resultMap>
+
+  <!--用于更新RolePermission-->
+  <insert id="updataRolePer" >
+
+    delete from role_permission where role_id = #{arg0};
+    insert into role_permission(role_id,permission_id)  values(#{arg0},#{arg1});
+
+  </insert>
+
+  <insert id="updateRolePers">
+      insert into role_permission(role_id,permission_id)  values
+      <foreach collection="idData"  item="p" separator=",">
+        (
+          #{arg0},#{p}
+        );
+      </foreach>
+  </insert>
+
+  <resultMap id="roleBaseMap" type="com.xc.springstudy.spring08.entity.Role">
+      <id column="rid" jdbcType="INTEGER" property="id" />
+      <result column="rname" jdbcType="VARCHAR" property="name" />
+
+      <collection property="permissions" ofType="com.xc.springstudy.spring08.entity.Permission">
+        <id column="pid" jdbcType="INTEGER" property="id" />
+        <result column="pname" jdbcType="VARCHAR" property="name" />
+        <result column="uri" jdbcType="VARCHAR" property="uri" />
+        <result column="c" jdbcType="TINYINT" property="c" />
+        <result column="r" jdbcType="TINYINT" property="r" />
+        <result column="u" jdbcType="TINYINT" property="u" />
+        <result column="d" jdbcType="TINYINT" property="d" />
+      </collection>
+  </resultMap>
+  
+  <select id="selectByID" resultMap="roleBaseMap">
+    SELECT
+	r.id as rid,
+    r.name as rname,
+    p.id as pid,
+    p.name as pname,
+	p.uri,
+    p.c,
+    p.r,
+    p.u,
+    p.d
+	FROM role r
+	inner join  role_permission rp
+    on r.id= rp.role_id
+	inner join  permission p
+    on rp.permission_id=p.id
+    where r.id=#{arg0}  ;
+  </select>
+  
+  
+  
+
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">

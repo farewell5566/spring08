@@ -1,4 +1,4 @@
-package com.xc.springstudy.spring08.controller;
+package com.xc.springstudy.spring08.controller.rest;
 
 import com.xc.springstudy.spring08.Stas;
 import com.xc.springstudy.spring08.entity.Permission;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/manager/permission")
-public class ManagerRestController {
+public class PermissionManagerRestController {
 
     @Autowired
     PermissionService permServ;

@@ -77,19 +77,22 @@ public class AccountController {
     }
 
     @RequestMapping("/uploadImage")
-    @ResponseBody
-    public String uploadImage( String password,MultipartFile filename,HttpServletRequest request){
 
+    public String uploadImage( String password,MultipartFile filename,HttpServletRequest request){
 
         try{
             Account acc =(Account) request.getSession().getAttribute("account");
             //定位项目路径，用于war，不能用在jar，用在jar的话，需要在项目外边进性生成
             File path = new File(ResourceUtils.getURL("classpath:").getPath());
-
             File upload = new File(path.getAbsoluteFile(),"static/upload/");
+
+            //设置文件保留的绝对路径
+
+            String pathName="D:/upload";
+
             System.out.println("originale:" + filename.getOriginalFilename());
             System.out.println("upload :" + upload+ "/" + filename.getOriginalFilename());
-            filename.transferTo(new File(upload+ "/" + filename.getOriginalFilename()));
+            filename.transferTo(new File(pathName+ "/" + filename.getOriginalFilename()));
 
             acc.setPassword(password);
             acc.setAddress(filename.getOriginalFilename());
@@ -99,7 +102,7 @@ public class AccountController {
             ex.printStackTrace();
         }
 
-        return "profile";
+        return "account/profile";
     }
 
 

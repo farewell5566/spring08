@@ -98,19 +98,24 @@
 <!--导航栏  ↑-->
 
 
-<h1 >修改/增加 权限</h1>
+<h1 >用户 权限 更改</h1>
 
-<form id="perData">
+<form id="rolePerData">
 
-    ID： <input name="id" type="text" th:value="${per}==null?'':${per.id}"> <br>
-    权限名称： <input name="name" type="text" th:value="${per}==null?'':${per.name}"><br>
-    URI： <input name="uri" type="text" th:value="${per}==null?'':${per.uri}"> <br>
+    ID： <input name="id" type="text" th:value="${role}==null?'':${role.id}"> <br>
+    用户名称： <input name="name" type="text" th:value="${role}==null?'':${role.name}"><br>
+
+    [[${role.permissions}]]
     权限：
-    <input type="checkbox" id="c" th:checked="${per}==null?false: ${per.c}" > c
-    <input type="checkbox" id="r" th:checked="${per}==null?false: ${per.r}">  r
-    <input type="checkbox" id="u" th:checked="${per}==null?false :${per.u}"> u
-    <input type="checkbox" id="d" th:checked="${per}==null?false :${per.d}"> d
+    <span th:each="p:${permissions}">
+        <span th:each="rp:${role.permissions}"  >
+            <input type="checkbox" th:id="${p.id}" name="idData" th:value="${p.id}" th:checked="${rp.id} == ${p.id}?false :true ">
+
+            <label th:text="${p.name}" ></label>
+        </span>
+    </span>
     <br>
+
     <a class = "btn btn-default" th:href="@{javascript:submit();}">提交</a>
 </form>
 
@@ -133,28 +138,24 @@
     </div>
 </div>
 
-
-
-
-
 <script type="text/javascript" >
 
     function submit(){
         var sendData={};
-        var data = $("#perData").serializeArray();
+        var data = $("#rolePerData").serializeArray();
         console.log(data);
         $.each(data,function (i,item) {
             sendData[item.name] = item.value
         })
-        sendData["c"]=$("#c").is(':checked');
-        sendData["r"]=$("#r").is(':checked');
-        sendData["u"]=$("#u").is(':checked');
-        sendData["d"]=$("#d").is(':checked');
 
-        console.log(sendData);
         console.log(JSON.stringify(sendData));
 
-        var url="/api/v1/manager/permission/update"
+        var url="/api/v1/manager/role/update"
+        $.post(url,data,function (data) {
+            console.log("success:" + JSON.stringify(data));
+
+        })
+        return;
         $.ajax({
             type : "post",
             url: url,
@@ -202,12 +203,7 @@
         })
     }
 
-
-
 </script>
-
-
-
 
 </body>
 </html>
